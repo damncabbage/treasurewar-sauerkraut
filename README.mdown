@@ -1,6 +1,6 @@
 # Treasure Wars Example Bot
 
-See the rules of treasure wars [here](http://github.com/mtcmorris/treasurewars).
+See the rules of treasure wars [here](http://github.com/mtcmorris/treasurewar).
 
 ## Developing
 
