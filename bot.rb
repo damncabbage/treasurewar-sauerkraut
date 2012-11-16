@@ -6,7 +6,7 @@ client = SocketIO.connect("http://localhost:3001") do
   before_start do
     on_message {|message| puts "incoming message: #{message}"}
 
-    # You have about 2 secs between each tick
+    # You have about 1 second between each tick
     on_event('tick') { |game_state|
       puts "Tick received #{game_state.inspect}"
 
@@ -23,7 +23,7 @@ client = SocketIO.connect("http://localhost:3001") do
       else
         # Random bot moves randomly!
         emit("move", {
-          dir: world.surrounding_tiles.select(&:floor?).sample.dir
+          dir: world.valid_move_directions.sample
         })
       end
 
