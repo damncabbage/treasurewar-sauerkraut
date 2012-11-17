@@ -17,12 +17,12 @@ describe World do
   }) }
 
   let!(:walls) {
-    [Point.new(x: 5, y: 10), Point.new(x: 3, y: 8)]
+    [Point.new(x: 5, y: 10, type: 'wall'), Point.new(x: 3, y: 8, type: 'wall')]
   } # SE, NW
-
 
   before do
     world.tiles = walls
+    world.updateTilesByXY
   end
 
   describe "#valid_move_directions" do

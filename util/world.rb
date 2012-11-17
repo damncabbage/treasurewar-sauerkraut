@@ -14,9 +14,7 @@ class World
     @you = You.new(state["you"])
 
     @tiles = []
-    for tile in state["tiles"]
-      @tiles.push Point.new(tile)
-    end
+    updateTilesByXY
 
     @nearby_treasure = []
     for item in (state["items"] || []).select(&:is_treasure)
@@ -30,8 +28,24 @@ class World
   end
 
   def valid_move_directions
-    DIRECTIONS.reject{|dir|
-      @tiles.include? you.position.position_after(dir)
-    }
+    # build blocked_dirs
+    blocked_dirs = []
+    @tiles_by_xy.each do |coords_key, tile|
+      x, y = coords_key.split(',').map(&:to_i)
+      blocked_dirs << Point.new({x: x, y: y}).direction_from(you.position) if tile.type == 'wall'
+    end
+
+    # we can go anywhere not blocked
+    DIRECTIONS - blocked_dirs
+  end
+
+  def updateTilesByXY
+    @tiles_by_xy = {}
+    for tile in @tiles
+      x = tile.x
+      y = tile.y
+      coords_key = [x, y].join(',')
+      @tiles_by_xy[coords_key] = tile
+    end
   end
 end
