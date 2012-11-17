@@ -18,6 +18,11 @@ class World
       @tiles.push Point.new(tile)
     end
 
+    @nearby_treasure = []
+    for item in (state["items"] || []).select(&:is_treasure)
+      @nearby_treasure.push Point.new(item)
+    end
+
     @nearby_players = []
     for player in state["nearby_players"]
       @nearby_players.push Player.new(player)

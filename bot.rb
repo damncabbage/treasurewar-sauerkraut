@@ -20,6 +20,14 @@ client = SocketIO.connect("http://localhost:8000") do
             world.position
           )
         })
+      elsif world.nearby_treasure.any?
+        # Random bot tries to acquire the first treasure it sees
+        if world.position == world.nearby_treasure.first
+          emit('pick up')
+        else
+          emit('move', {dir: world.nearby_treasure.first.direction_from(world.position) })
+        end
+
       else
         # Random bot moves randomly!
         emit("move", {
