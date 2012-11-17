@@ -30,7 +30,7 @@ client = SocketIO.connect("http://localhost:8000") do
       # Valid commands:
       # emit("move", {dir: "n"})
       # emit("attack", {dir: "ne"})
-      # emit("pick up", {dir: "ne"})
+      # emit("pick up")
       # emit("throw", {dir: "ne"})
     }
   end
