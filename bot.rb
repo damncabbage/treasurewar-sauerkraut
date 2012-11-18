@@ -44,6 +44,6 @@ client = SocketIO.connect("http://localhost:8000") do
   end
 
   after_start do
-    emit("set name", "my bot name")
+    emit("set name", "Sauerkraut")
   end
 end

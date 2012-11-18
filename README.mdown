@@ -1,14 +1,22 @@
-# Treasure Wars Example Bot
+# Sauerkraut
 
-See the rules of treasure wars [here](http://github.com/mtcmorris/treasurewar).
+A crabby, defensive bot for [Treasure War](http://github.com/mtcmorris/treasurewar). Written at [Railscamp 12](http://railscamps.com/) while consuming coffee made by [@snapperwolf](https://twitter.com/snapperwolf).
 
-## Developing
+## Running the Bot
 
-Place your logic/code in the designated spot in `bot.rb`. Random bot is not very smart - perhaps you could make him `pick up` treasure if he sees it...
+In one terminal:
 
-Getting started:
+```
+git clone git://github.com/mtcmorris/treasurewar.git
+cd treasurewar && npm install
+coffee server.coffee
+open 'http://localhost:8000'
+```
 
-    bundle
-    bundle exec ruby bot.rb
+In the other:
 
-You may need to edit the bot connection url in bot.rb
+```
+git clone git://github.com/damncabbage/treasurewar-sauerkraut.git
+cd treasurewar-sauerkraut && bundle install
+bundle exec ruby bot.rb localhost
+```
