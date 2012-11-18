@@ -1,9 +1,21 @@
 require 'SocketIO'
-
 require_relative './util/world'
+Dir['lib/**/*.rb'].each { |f| require f }
 
-client = SocketIO.connect("http://localhost:8000") do
+hostname = ARGV[0] || 'localhost'
+client = SocketIO.connect("http://#{hostname}:8000") do
   before_start do
+
+    # Instantiated now and kept around so that
+    # individual strategies can hang on to previous
+    # state for record-keeping if needed.
+    stack = StrategyStack.new([
+      Strategy::DropAtStash.new,
+      Strategy::KillNearby.new,
+      Strategy::PickUpNearby.new
+      Strategy::BackToStash.new
+    ])
+
     on_message {|message| puts "incoming message: #{message}"}
 
     # You have about 1 second between each tick
@@ -11,29 +23,8 @@ client = SocketIO.connect("http://localhost:8000") do
       puts "Tick received #{game_state.inspect}"
 
       world = World.new(game_state.first)
+      emit(*stack.act(world))
 
-      # Bot logic goes here...
-      if world.nearby_players.any?
-        # Random bot likes to fight!
-        emit("attack", {
-          dir: world.nearby_players.first.direction_from(
-            world.position
-          )
-        })
-      elsif world.nearby_treasure.any?
-        # Random bot tries to acquire the first treasure it sees
-        if world.position == world.nearby_treasure.first
-          emit('pick up')
-        else
-          emit('move', {dir: world.nearby_treasure.first.direction_from(world.position) })
-        end
-
-      else
-        # Random bot moves randomly!
-        emit("move", {
-          dir: world.valid_move_directions.sample
-        })
-      end
 
       # Valid commands:
       # emit("move", {dir: "n"})
