@@ -9,7 +9,7 @@ class StrategyStack
 
   # Returns ['action name', {action: data}]
   def act(world)
-    update_strategies!(world)
+    update_strategies_with_world!(world)
 
     stack.each do |strategy|
       if strategy.use?
