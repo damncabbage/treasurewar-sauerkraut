@@ -1,5 +1,7 @@
+require_relative './base'
+
 module Strategy
-  class DropAtStash
+  class DropAtStash < Base
     def use?
       world.you.carrying_treasure
     end

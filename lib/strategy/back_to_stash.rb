@@ -1,3 +1,5 @@
+require_relative './base'
+
 module Strategy
   class BackToStash < Base
     def use?

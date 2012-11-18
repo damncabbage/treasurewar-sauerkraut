@@ -1,3 +1,5 @@
+require_relative './base'
+
 module Strategy
   class KillNearby < Base
     def use?
