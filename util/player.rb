@@ -7,8 +7,7 @@ class Player < Point
     @name   = hash["name"]
     @score  = hash["score"]
     @carrying_treasure = hash["carrying_treasure"]
-
-    super(hash)
+    super(hash["position"])
   end
 
   def carrying_treasure?
