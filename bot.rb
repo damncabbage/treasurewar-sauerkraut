@@ -1,6 +1,6 @@
 require 'SocketIO'
 require_relative './util/world'
-Dir['lib/**/*.rb'].each { |f| require f }
+Dir['lib/**/*.rb'].each { |f| require_relative f }
 
 hostname = ARGV[0] || 'localhost'
 client = SocketIO.connect("http://#{hostname}:8000") do
@@ -12,7 +12,7 @@ client = SocketIO.connect("http://#{hostname}:8000") do
     stack = StrategyStack.new([
       Strategy::DropAtStash.new,
       Strategy::KillNearby.new,
-      Strategy::PickUpNearby.new
+      Strategy::PickUpNearby.new,
       Strategy::BackToStash.new
     ])
 
