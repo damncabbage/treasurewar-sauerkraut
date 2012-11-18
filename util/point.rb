@@ -26,6 +26,12 @@ class Point
     end
   end
 
+  def distance_from(point)
+    x = (point.x - @x).abs
+    y = (point.y - @y).abs
+    Math.sqrt(x ** 2 + y ** 2)
+  end
+
   def position_after(direction)
     case direction
     when :n  then Point.new(x: @x    , y: @y - 1)
